@@ -127,10 +127,11 @@ class ArgsBiSSLDefaults(ArgsGeneralDefaults):
 
     save_model: bool = True
 
-    # Naming of these two should instead refer to "upper" instead of "downstream"...
-    # Perhaps also for the adapt_backbone pars?
+    # Scaling of the second term in the upper level loss, assigned the symbol gamma in the paper
     upper_classic_grad_scale: float = 0.01
 
+    # Number of either gradient steps or epochs to conduct for the respective lower and upper levels before alternating.
+    # The assignment "steps" have been used throughout all experiments in the paper.
     lower_num_iter: int = 20
     lower_iter_type: Literal["steps", "epochs"] = "steps"
     upper_num_iter: int = 8
