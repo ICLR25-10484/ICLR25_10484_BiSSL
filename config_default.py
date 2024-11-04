@@ -8,9 +8,6 @@ from typing import Literal
 
 
 class ArgsGeneralDefaults:
-    # Load config from previous run
-    # load_config_run_id: str = None
-
     data_dir = "./data/"  # Dir to datasets.
     model_dir = "./models/"  # Dir to models.
 
