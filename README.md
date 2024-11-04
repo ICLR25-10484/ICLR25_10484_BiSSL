@@ -1,5 +1,5 @@
 # BiSSL: Bilevel Optimization for Self-Supervised Pre-Training and Fine-Tuning
-This repository holds the pytorch-implementation accompanying the paper on BiSSL (submitted to ICLR 2025). The implementation is verified to work for single-node multi-gpu (cuda) setups.
+This repository holds the pytorch-implementation accompanying the paper on BiSSL. The implementation is verified to work for single-node multi-gpu (cuda) setups.
 ![](figs/bissl_pipeline.png)
 
 ## Pre-Trained Model Weights and Datasets
