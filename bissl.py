@@ -209,15 +209,6 @@ if __name__ == "__main__":
     )
     lr_scheduler_p.warmup_steps = 10 * len(dataloader_p)
 
-    blo_grad_calc = IGGradCalc(
-        solver=cg_solver,
-        lam_dampening=args.cg_lam_dampening,
-        solver_kwargs=dict(
-            iter_num=args.cg_iter_num,
-            verbose=bool(args.cg_verbose),
-        ),
-    )
-
     ###############################
     ######### BLO TRAINING ########
     ###############################
@@ -362,6 +353,15 @@ if __name__ == "__main__":
     if args.d_linear_warmup_epochs == 0:
         model_d.backbone.load_state_dict(model_p.module.backbone.state_dict())
     model_d = torch.nn.parallel.DistributedDataParallel(model_d)
+
+    blo_grad_calc = IGGradCalc(
+        solver=cg_solver,
+        lam_dampening=args.cg_lam_dampening,
+        solver_kwargs=dict(
+            iter_num=args.cg_iter_num,
+            verbose=bool(args.cg_verbose),
+        ),
+    )
 
     train_blo_ft = BiSSL_Trainer(
         optimizers=(optimizer_d, optimizer_p),
