@@ -184,7 +184,7 @@ class BiSSL_Trainer:
         models: Tuple[torch.nn.Module],
         loss_fn_d: torch.optim.Optimizer,
         device: torch.device,
-        blo_grad_calc: IGGradCalc,
+        ig_grad_calc: IGGradCalc,
         rank: int | None = None,
         lr_scheduler_p: torch.optim.lr_scheduler.LRScheduler | None = None,
         lr_scheduler_d: torch.optim.lr_scheduler.LRScheduler | None = None,
@@ -200,7 +200,7 @@ class BiSSL_Trainer:
 
         self.device = device
 
-        self.blo_grad_calc = blo_grad_calc
+        self.ig_grad_calc = ig_grad_calc
 
         if lr_scheduler_p is None:
             self.lr_scheduler_p = EmptyLrSched()
@@ -282,8 +282,8 @@ class BiSSL_Trainer:
             loss_uhead_lbackbone, self.model_p.module.backbone.parameters()
         )
 
-        if self.blo_grad_calc.solver_type == "cg":
-            ig_grads_backbone = self.blo_grad_calc(
+        if self.ig_grad_calc.solver_type == "cg":
+            ig_grads_backbone = self.ig_grad_calc(
                 lower_inputs=lower_inputs,
                 lower_criteria=self.model_p,
                 lower_backbone=self.model_p.module.backbone,
@@ -414,7 +414,7 @@ class BiSSL_Trainer:
 
         self.model_p.train()
 
-        if self.blo_grad_calc.solver_type == "cg":
+        if self.ig_grad_calc.solver_type == "cg":
             lower_input_return = []
         else:
             lower_input_return = None
@@ -425,7 +425,7 @@ class BiSSL_Trainer:
                 x2.to(self.device, non_blocking=True),
             )
 
-            if self.blo_grad_calc.solver_type == "cg":
+            if self.ig_grad_calc.solver_type == "cg":
                 # Stores the LOWER_INPUT_MAX (=5 in the paper) first lower level inputs to use for approximating the lower-level hessian in the upper-level gradient approximation.
                 if len(lower_input_return) < LOWER_INPUTS_MAX:
                     lower_input_return.append((x1, x2))
