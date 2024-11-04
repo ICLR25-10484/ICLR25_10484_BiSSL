@@ -118,7 +118,7 @@ class ArgsBiSSLDefaults(ArgsGeneralDefaults):
     p_momentum = ArgsPretextDefaults.momentum
     p_optimizer: Literal["sgd", "lars"] = ArgsPretextDefaults.optimizer
 
-    # Filename of model parameters  placed in root + model_dir
+    # Filename of model parameters placed in model_dir
     p_pretrained_backbone_filename: str = "pretext_arch-resnet18_epochs500_bb.pth"
     p_pretrained_proj_filename: str = "pretext_arch-resnet18_epochs500_proj.pth"
 
@@ -154,7 +154,7 @@ class ArgsFineTuningDefaults(ArgsGeneralDefaults):
     pretrain_img_size = ArgsPretextDefaults.img_size
     pretrain_img_crop_min_ratio = ArgsPretextDefaults.img_crop_min_ratio
 
-    # Filename of pretrained model. Assumes it is placed in root + model_dir
+    # Filename of pretrained model placed in model_dir
     pretrained_backbone_filename = "pretext_arch-resnet18_epochs500_bb.pth"
 
     # Hyperparamter Optimization Args
