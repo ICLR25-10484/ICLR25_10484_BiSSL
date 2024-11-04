@@ -354,7 +354,7 @@ if __name__ == "__main__":
         model_d.backbone.load_state_dict(model_p.module.backbone.state_dict())
     model_d = torch.nn.parallel.DistributedDataParallel(model_d)
 
-    blo_grad_calc = IGGradCalc(
+    ig_grad_calc = IGGradCalc(
         solver=cg_solver,
         lam_dampening=args.cg_lam_dampening,
         solver_kwargs=dict(
@@ -368,7 +368,7 @@ if __name__ == "__main__":
         models=(model_d, model_p),
         loss_fn_d=loss_fn_d,
         device=device,
-        blo_grad_calc=blo_grad_calc,
+        blo_grad_calc=ig_grad_calc,
         rank=args.rank,
         lr_scheduler_p=lr_scheduler_p,
         lr_scheduler_d=lr_scheduler_d,
