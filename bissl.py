@@ -368,7 +368,7 @@ if __name__ == "__main__":
         models=(model_d, model_p),
         loss_fn_d=loss_fn_d,
         device=device,
-        blo_grad_calc=ig_grad_calc,
+        ig_grad_calc=ig_grad_calc,
         rank=args.rank,
         lr_scheduler_p=lr_scheduler_p,
         lr_scheduler_d=lr_scheduler_d,
