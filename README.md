@@ -15,7 +15,7 @@ To conduct conventional self-supervised pre-training (using SimCLR) with 4 GPUs 
 ```
 torchrun --nproc-per-node 4 ssl_pre-training.py
 ```
-To train the model used prior to conducting BiSSL in the experiments of the paper, alter the line to
+To train the model used prior to conducting BiSSL in the experiments of the paper (i.e. the pretext warm-up in the pipeline involving BiSSL), alter the line to
 ```
 torchrun --nproc-per-node 4 ssl_pre-training.py --epochs 500
 ```
