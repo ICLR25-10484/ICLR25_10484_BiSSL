@@ -209,10 +209,6 @@ if __name__ == "__main__":
     )
     lr_scheduler_p.warmup_steps = 10 * len(dataloader_p)
 
-    ###############################
-    ######### BLO TRAINING ########
-    ###############################
-
     backbone_tostore_path = (
         args.model_dir + "BiSSL-backbone_arch-" + args.arch + f"_dset-{args.d_dset}.pth"
     )
@@ -354,6 +350,8 @@ if __name__ == "__main__":
         model_d.backbone.load_state_dict(model_p.module.backbone.state_dict())
     model_d = torch.nn.parallel.DistributedDataParallel(model_d)
 
+    ### (Remaining) TRAINING SETUP  ###
+    
     ig_grad_calc = IGGradCalc(
         solver=cg_solver,
         lam_dampening=args.cg_lam_dampening,
@@ -378,9 +376,14 @@ if __name__ == "__main__":
         upper_iter_type=args.upper_iter_type,
     )
 
+    # ###############################
+    # ########### BiSSL #############
+    # ###############################
+    
     print_and_save_stat("", rank=args.rank)
     print_and_save_stat("BiSSL Training", rank=args.rank)
 
+    
     for epoch in range(args.epochs):
         print_and_save_stat("", rank=args.rank)
         print_and_save_stat(
